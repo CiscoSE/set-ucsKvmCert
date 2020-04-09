@@ -29,17 +29,14 @@ Path to the RSA Key. Eliptic curve is not supported. This must be an RSA key.
 .PARAMETER Base64CertPath
 Path to the Base 64 encoded signed certificate returned from the CA.
 
-.PARAMETER IGetIt
-The script will not run unless you include this switch. This prevents the script from being accidently run in a damaging manner.
-
 .EXAMPLE
 
-DeployCertificateToAll.ps1 -UCSIP 172.16.1.10 -Filter FCH00000001,FCH00000002 -RSAKeyPath .\keygen\SomeRSAPrivate.key -Base64CertPath .\keygen\SomeBase64Cert.cer -IGetIt
+DeployCertificateToAll.ps1 -UCSIP 172.16.1.10 -Filter FCH00000001,FCH00000002 -RSAKeyPath .\keygen\SomeRSAPrivate.key -Base64CertPath .\keygen\SomeBase64Cert.cer
 
 Deploys the same certificate and private key to two serial numbers.
 
 .EXAMPLE
- DeployCertificateToAll.ps1 -UCSIP 172.16.1.10 -Filter . -RSAKeyPath .\keygen\SomeRSAPrivate.key -Base64CertPath .\keygen\SomeBase64Cert.cer -IGetIt
+ DeployCertificateToAll.ps1 -UCSIP 172.16.1.10 -Filter . -RSAKeyPath .\keygen\SomeRSAPrivate.key -Base64CertPath .\keygen\SomeBase64Cert.cer
 
 Deploys the same certificate to all servers in the UCS Domain.
 
@@ -49,16 +46,9 @@ param(
     [parameter(mandatory=$true)][string]$UCSIP,
     [parameter(mandatory=$true)][array]$Filter,
     [parameter(mandatory=$true)][string]$RSAKeyPath,
-    [parameter(mandatory=$true)][string]$Base64CertPath,
-    [parameter(mandatory=$false)][switch]$IGetIt = $false
+    [parameter(mandatory=$true)][string]$Base64CertPath
 )
 
-
-#FailSafe 
-if ($IGetIt = $false){
-    write-Host "This script makes changes that can impact your systems operation. You should fully understand this script before you run it."
-    exit
-}
 
 
 if (test-path $RSAKeyPath){
@@ -101,12 +91,10 @@ if ($ListOfServers.count -gt 99){
     exit
 }
 
-
-
-
 $ListOfServers |
         %{
-        #$_.dn + '/mgmt'
+        write-host "Updating $($_.serial)"
+        write-verbose "Writting DN:`t$($_.dn)/mgmt"
         $CertificateBody = @"
 <configConfMos
 cookie='$($DefaultUcs.Cookie)'
@@ -137,10 +125,9 @@ inHierarchical='false'>
 </configConfMos>
 
 "@
-        $_.dn
-        $CertificateBody
+        write-verbose "$($CertificateBody)"
         $URI = 'https://' + $UCSIP+'/nuova'
-        $URI
-        $Result = Invoke-WebRequest -Uri $URI -body $CertificateBody -Verbose -Method Post
-        $Result
+        write-verbose $URI
+        $Result = Invoke-WebRequest -Uri $URI -body $CertificateBody -Method Post
+        write-verbose $Result
         }
