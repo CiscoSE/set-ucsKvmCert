@@ -1,0 +1,25 @@
+[req]
+default_bits = 384
+prompt = no
+default_md = sha384
+req_extensions = v3_req
+distinguished_name = dn
+ 
+[ dn ]
+C=<Your Country Code>
+ST=<Your State>
+L=<Your Location>
+O=<Your organization / Company>
+OU=<Your identifier>
+emailAddress=<your@email.address>
+CN = <fully.qualified.domain.name>
+ 
+[ v3_req ]
+subjectAltName = @alt_name
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+
+[alt_name]
+IP.1 = 1.1.1.1
+IP.2 = 1.1.1.2
+IP.3 = 1.1.1.3 
+IP.4 = 1.1.1.4
