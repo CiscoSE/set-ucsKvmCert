@@ -56,7 +56,7 @@ param(
 
 #FailSafe 
 if ($IGetIt = $false){
-    write-Host "This script makes changes that can impact your systems operation. You should fully understand this script before you run it.
+    write-Host "This script makes changes that can impact your systems operation. You should fully understand this script before you run it."
     exit
 }
 
