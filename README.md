@@ -18,15 +18,15 @@ The following requirements must be completed to use this script:
 
 **Caution: Like all changes, you should test this script on a single lab system before deploying to production systems. The examples below show how to run this script against a single system, or an array of systems. It is possible run this script against all servers in a UCS domain, but that has not been tested and is not recommended without completing your own testing and validation.**
 
-**Note: Subject alternate names maybe limited to 100 subject alteranate names per certificate. The script is currently limited to 100 servers to prevent mistakes**
+**Note: Subject alternate names maybe limited to 100 subject alternate names per certificate. The script is currently limited to 100 servers to prevent mistakes**
 
 ## Running the script
-This powershell script requires the following aurguments:
+This powershell script requires the following arguments:
 
->	-UCSIP		This can be the ip or DNS name of the cluster ip of UCS Manager
->	-Filter		An array of serial numbers for the servers you want to install certificates on
->	-RSAKeyPath	The location of the RSA generated key
->	-Base64CertPath	The location of the signed **Base64** certificate associated with the RSA key
+>-UCSIP		This can be the ip or DNS name of the cluster ip of UCS Manager
+>-Filter		An array of serial numbers for the servers you want to install certificates on
+>-RSAKeyPath	The location of the RSA generated key
+>-Base64CertPath	The location of the signed **Base64** certificate associated with the RSA key
 
 The following is an example for deploying the key and certificate to single server:
 
