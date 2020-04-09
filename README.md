@@ -11,14 +11,14 @@ The following requirements must be completed to use this script:
 >	openssl genrsa -out ./keygen/KVM.key 4096
 
 - Certificate signed by a CA using the RSA Key generated above
- - Create a file with the CA properties. Subject alternate name must include every IP address that the certificate will be used for. An example cnf file is provided in the keygen directory named kvm.cnf.
+ - Create a file with the CA properties. Subject alternate name must include every IP address that the certificate will be used for. An example cnf file is provided in the keygen directory named KVM.cnf.
  - you can create a csr using the following example with openssl:
->	openssl req -new -key ./keygen/KVM.key -nodes -out ./keygen/KVM.csr
+>	openssl req -new -key ./keygen/KVM.key -nodes -out ./keygen/KVM.csr -config ./keygen/KVM.cnf
  - The result should be a signed certificate from the CA in **base64** encoding
 
 **Caution: Like all changes, you should test this script on a single lab system before deploying to production systems. The examples below show how to run this script against a single system, or an array of systems. It is possible run this script against all servers in a UCS domain, but that has not been tested and is not recommended without completing your own testing and validation.**
 
-**Note: Subject alternates maybe limited to 100 subject alteranate names per certificate.**
+**Note: Subject alternate names maybe limited to 100 subject alteranate names per certificate. The script is currently limited to 100 servers to prevent mistakes**
 
 ## Running the script
 This powershell script requires the following aurguments:
@@ -32,3 +32,6 @@ The following is an example for deploying the key and certificate to single serv
 
 >	.\DeployCertificateToAll.ps1 -UCSIP 1.1.2.1 -Filter FCH00000001 -RSAKeyPath .\keygen\KVM.key -Base64CertPath ./keygen/KVM.cer
 
+You can deploy to multiple serial numbers by adding serial numbers in a comma seperated methodology.
+
+.\DeployCertificateToAll.ps1 -UCSIP 1.1.2.1 -Filter FCH00000001,FCH00000002 -RSAKeyPath .\keygen\KVM.key -Base64CertPath ./keygen/KVM.cer
