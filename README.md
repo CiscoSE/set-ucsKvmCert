@@ -30,8 +30,8 @@ This powershell script requires the following arguments:
 ```
 The following is an example for deploying the key and certificate to single server:
 
->	.\DeployCertificateToAll.ps1 -UCSIP 1.1.2.1 -Filter FCH00000001 -RSAKeyPath .\keygen\KVM.key -Base64CertPath ./keygen/KVM.cer
+>	.\DeployCertToKVM.ps1 -UCSIP 1.1.2.1 -Filter FCH00000001 -RSAKeyPath .\keygen\KVM.key -Base64CertPath ./keygen/KVM.cer
 
 You can deploy to multiple serial numbers by adding serial numbers in a comma seperated methodology.
 
-.\DeployCertificateToAll.ps1 -UCSIP 1.1.2.1 -Filter FCH00000001,FCH00000002 -RSAKeyPath .\keygen\KVM.key -Base64CertPath ./keygen/KVM.cer
+.\DeployCertToKVM.ps1 -UCSIP 1.1.2.1 -Filter FCH00000001,FCH00000002 -RSAKeyPath .\keygen\KVM.key -Base64CertPath ./keygen/KVM.cer
