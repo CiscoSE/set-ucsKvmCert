@@ -22,12 +22,12 @@ The following requirements must be completed to use this script:
 
 ## Running the script
 This powershell script requires the following arguments:
-
->-UCSIP		This can be the ip or DNS name of the cluster ip of UCS Manager
->-Filter		An array of serial numbers for the servers you want to install certificates on
->-RSAKeyPath	The location of the RSA generated key
->-Base64CertPath	The location of the signed **Base64** certificate associated with the RSA key
-
+```
+	-UCSIP		This can be the ip or DNS name of the cluster ip of UCS Manager
+	-Filter		An array of serial numbers for the servers you want to install certificates on
+	-RSAKeyPath	The location of the RSA generated key
+	-Base64CertPath	The location of the signed **Base64** certificate associated with the RSA key
+```
 The following is an example for deploying the key and certificate to single server:
 
 >	.\DeployCertificateToAll.ps1 -UCSIP 1.1.2.1 -Filter FCH00000001 -RSAKeyPath .\keygen\KVM.key -Base64CertPath ./keygen/KVM.cer
